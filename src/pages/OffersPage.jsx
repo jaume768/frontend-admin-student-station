@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
-import { FaSearch, FaFilter, FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { getOffers, deleteOffer } from '../services/offerService';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/OffersPage.css';
+
+// Importar iconos de assets en lugar de react-icons
+import iconEye from '../assets/icons/icon-eye.svg';
+import iconEdit from '../assets/icons/icon-edit.svg';
+import iconTrash from '../assets/icons/icon-trash.svg';
+import iconFilter from '../assets/icons/icon-filter.svg';
 
 const OffersPage = () => {
   const [offers, setOffers] = useState([]);
@@ -263,7 +268,7 @@ const OffersPage = () => {
               className="search-input"
             />
             <button type="submit" className="search-btn">
-              <FaSearch />
+              <img src={iconEye} alt="Buscar" className="action-icon" />
             </button>
           </div>
         </form>
@@ -272,7 +277,8 @@ const OffersPage = () => {
           className={`filter-toggle-btn ${showFilters ? 'active' : ''}`}
           onClick={toggleFilters}
         >
-          <FaFilter /> Filtros
+          <img src={iconFilter} alt="Filtros" className="action-icon" />
+          Filtros
         </button>
       </div>
 
@@ -336,21 +342,21 @@ const OffersPage = () => {
                       title="Ver oferta"
                       onClick={() => handleViewOffer(offer._id)}
                     >
-                      <FaEye />
+                      <img src={iconEye} alt="Ver" className="action-icon" />
                     </button>
                     <button 
                       className="action-btn edit-btn" 
                       title="Editar"
                       onClick={() => handleEditOffer(offer._id)}
                     >
-                      <FaEdit />
+                      <img src={iconEdit} alt="Editar" className="action-icon" />
                     </button>
                     <button 
                       className="action-btn delete-btn" 
                       title="Eliminar"
                       onClick={() => handleDeleteOffer(offer._id, offer.position)}
                     >
-                      <FaTrash />
+                      <img src={iconTrash} alt="Eliminar" className="action-icon" />
                     </button>
                   </td>
                 </tr>

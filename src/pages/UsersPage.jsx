@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaSearch, FaEdit, FaTrash, FaUserPlus, FaUndo, FaFilter, FaEye } from 'react-icons/fa';
-import { getUsers, softDeleteUser, restoreUser } from '../services/userService';
+import { getUsers, softDeleteUser, restoreUser, hardDeleteUser } from '../services/userService';
 import { toast } from 'react-toastify';
 import '../styles/UsersPage.css';
+
+// Importar iconos de assets en lugar de react-icons
+import iconEye from '../assets/icons/icon-eye.svg';
+import iconEdit from '../assets/icons/icon-edit.svg';
+import iconTrash from '../assets/icons/icon-trash.svg';
+import iconUndo from '../assets/icons/icon-undo.svg';
+import iconFilter from '../assets/icons/icon-filter.svg';
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -116,6 +122,27 @@ const UsersPage = () => {
     });
   };
 
+  const handleHardDelete = async (userId, username) => {
+    setConfirmAction({
+      type: 'hardDelete',
+      id: userId,
+      name: username,
+      onConfirm: async () => {
+        try {
+          await hardDeleteUser(userId);
+          toast.success('Usuario eliminado permanentemente');
+          fetchUsers();
+        } catch (error) {
+          console.error('Error al eliminar usuario permanentemente:', error);
+          toast.error('Error al eliminar el usuario permanentemente');
+        } finally {
+          setConfirmAction(null);
+        }
+      },
+      onCancel: () => setConfirmAction(null)
+    });
+  };
+
   const changePage = (page) => {
     setCurrentPage(page);
   };
@@ -151,11 +178,24 @@ const UsersPage = () => {
   const renderConfirmDialog = () => {
     if (!confirmAction) return null;
 
-    const isDelete = confirmAction.type === 'softDelete';
-    const title = isDelete ? 'Desactivar usuario' : 'Restaurar usuario';
-    const message = isDelete 
-      ? `¿Estás seguro de que deseas desactivar a "${confirmAction.name}"? El usuario no podrá acceder a la plataforma.`
-      : `¿Estás seguro de que deseas restaurar a "${confirmAction.name}"? El usuario podrá volver a acceder a la plataforma.`;
+    let title, message, confirmText, btnClass;
+    
+    if (confirmAction.type === 'softDelete') {
+      title = 'Desactivar usuario';
+      message = `¿Estás seguro de que deseas desactivar a "${confirmAction.name}"? El usuario no podrá acceder a la plataforma.`;
+      confirmText = 'Desactivar';
+      btnClass = 'btn-danger';
+    } else if (confirmAction.type === 'restore') {
+      title = 'Restaurar usuario';
+      message = `¿Estás seguro de que deseas restaurar a "${confirmAction.name}"? El usuario podrá volver a acceder a la plataforma.`;
+      confirmText = 'Restaurar';
+      btnClass = 'btn-primary';
+    } else if (confirmAction.type === 'hardDelete') {
+      title = 'Eliminar permanentemente';
+      message = `¿Estás seguro de que deseas eliminar permanentemente a "${confirmAction.name}"? Esta acción NO se puede deshacer.`;
+      confirmText = 'Eliminar permanentemente';
+      btnClass = 'btn-danger';
+    }
 
     return (
       <div className="confirm-dialog-overlay">
@@ -170,10 +210,10 @@ const UsersPage = () => {
               Cancelar
             </button>
             <button 
-              className={`btn ${isDelete ? 'btn-danger' : 'btn-primary'}`} 
+              className={`btn ${btnClass}`} 
               onClick={confirmAction.onConfirm}
             >
-              {isDelete ? 'Desactivar' : 'Restaurar'}
+              {confirmText}
             </button>
           </div>
         </div>
@@ -211,7 +251,7 @@ const UsersPage = () => {
       <div className="users-header">
         <h1>Gestión de Usuarios</h1>
         <Link to="/usuarios/crear-admin" className="btn btn-primary create-btn">
-          <FaUserPlus /> Crear Administrador
+          Crear Administrador
         </Link>
       </div>
 
@@ -226,7 +266,7 @@ const UsersPage = () => {
               className="search-input"
             />
             <button type="submit" className="search-btn">
-              <FaSearch />
+              <img src={iconEye} alt="Buscar" className="action-icon" />
             </button>
           </div>
         </form>
@@ -235,7 +275,8 @@ const UsersPage = () => {
           className={`filter-toggle-btn ${showFilters ? 'active' : ''}`}
           onClick={toggleFilters}
         >
-          <FaFilter /> Filtros
+          <img src={iconFilter} alt="Filtros" className="action-icon" />
+          Filtros
         </button>
       </div>
 
@@ -345,10 +386,10 @@ const UsersPage = () => {
                   </td>
                   <td className="actions-cell">
                     <Link to={`/usuarios/${user._id}`} className="action-btn view-btn" title="Ver detalles">
-                      <FaEye />
+                      <img src={iconEye} alt="Ver" className="action-icon" />
                     </Link>
                     <Link to={`/usuarios/${user._id}`} className="action-btn edit-btn" title="Editar">
-                      <FaEdit />
+                      <img src={iconEdit} alt="Editar" className="action-icon" />
                     </Link>
                     {user.isActive ? (
                       <button
@@ -356,7 +397,7 @@ const UsersPage = () => {
                         title="Desactivar usuario"
                         onClick={() => handleSoftDelete(user._id, user.username)}
                       >
-                        <FaTrash />
+                        <img src={iconTrash} alt="Desactivar" className="action-icon" />
                       </button>
                     ) : (
                       <button
@@ -364,9 +405,16 @@ const UsersPage = () => {
                         title="Restaurar usuario"
                         onClick={() => handleRestore(user._id, user.username)}
                       >
-                        <FaUndo />
+                        <img src={iconUndo} alt="Restaurar" className="action-icon" />
                       </button>
                     )}
+                    <button
+                      className="action-btn hard-delete-btn" 
+                      title="Eliminar permanentemente"
+                      onClick={() => handleHardDelete(user._id, user.username)}
+                    >
+                      <img src={iconTrash} alt="Eliminar permanentemente" className="action-icon" style={{ color: '#c62828' }} />
+                    </button>
                   </td>
                 </tr>
               ))}

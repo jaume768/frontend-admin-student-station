@@ -190,6 +190,19 @@
   color: #555;
   cursor: pointer;
   transition: background-color 0.2s;
+  font-size: 16px;
+}
+
+.action-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.action-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .action-btn:hover {
@@ -198,14 +211,17 @@
 
 .action-btn.view-btn:hover {
   color: #1976d2;
+  background-color: #e3f2fd;
 }
 
 .action-btn.edit-btn:hover {
   color: #ff9800;
+  background-color: #fff3e0;
 }
 
 .action-btn.delete-btn:hover {
   color: #c62828;
+  background-color: #ffebee;
 }
 
 .pagination {

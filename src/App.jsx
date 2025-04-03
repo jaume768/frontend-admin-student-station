@@ -5,7 +5,9 @@ import DashboardPage from './pages/DashboardPage'
 import UsersPage from './pages/UsersPage'
 import UserDetailPage from './pages/UserDetailPage'
 import OffersPage from './pages/OffersPage'
+import EditOfferPage from './pages/EditOfferPage'
 import EducationalOffersPage from './pages/EducationalOffersPage'
+import EditEducationalOfferPage from './pages/EditEducationalOfferPage'
 import PostsPage from './pages/PostsPage'
 import SchoolsPage from './pages/SchoolsPage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -37,7 +39,9 @@ function App() {
           <Route path="usuarios" element={<UsersPage />} />
           <Route path="usuarios/:userId" element={<UserDetailPage />} />
           <Route path="ofertas" element={<OffersPage />} />
+          <Route path="ofertas/:offerId" element={<EditOfferPage />} />
           <Route path="ofertas-educativas" element={<EducationalOffersPage />} />
+          <Route path="ofertas-educativas/:offerId" element={<EditEducationalOfferPage />} />
           <Route path="posts" element={<PostsPage />} />
           <Route path="escuelas" element={<SchoolsPage />} />
         </Route>
