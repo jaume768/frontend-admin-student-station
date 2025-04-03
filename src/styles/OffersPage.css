@@ -1,0 +1,277 @@
+.offers-container {
+  padding: 20px 0;
+}
+
+.offers-header {
+  margin-bottom: 25px;
+}
+
+.offers-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.offers-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  flex: 1;
+  min-width: 250px;
+  max-width: 500px;
+}
+
+.filter-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #555;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-toggle-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.filter-toggle-btn.active {
+  background-color: #e3f2fd;
+  border-color: #bbdefb;
+  color: #1976d2;
+}
+
+.filters-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 15px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+  align-items: flex-end;
+}
+
+.filter-group {
+  min-width: 200px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+.reset-filters-btn {
+  height: 38px;
+  padding: 0 20px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.offers-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.offers-table th, .offers-table td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.offers-table th {
+  font-weight: 600;
+  color: #555;
+  background-color: #f9f9f9;
+  font-size: 14px;
+}
+
+.offers-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.offer-title-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.offer-title {
+  font-weight: 500;
+}
+
+.urgent-badge {
+  display: inline-block;
+  padding: 3px 6px;
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-badge.active {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.inactive {
+  background-color: #f5f5f5;
+  color: #757575;
+}
+
+.status-badge.pending {
+  background-color: #fff8e1;
+  color: #f57c00;
+}
+
+.status-badge.paused {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-badge.default {
+  background-color: #f5f5f5;
+  color: #757575;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.action-btn.view-btn:hover {
+  color: #1976d2;
+}
+
+.action-btn.edit-btn:hover {
+  color: #ff9800;
+}
+
+.action-btn.delete-btn:hover {
+  color: #c62828;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.pagination-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #f5f5f5;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #666;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.no-results p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .offers-controls {
+    flex-direction: column;
+  }
+  
+  .search-form {
+    max-width: 100%;
+  }
+  
+  .filters-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-group {
+    width: 100%;
+  }
+  
+  .offers-table {
+    min-width: 700px;
+  }
+}
