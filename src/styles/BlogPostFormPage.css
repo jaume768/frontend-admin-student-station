@@ -9,14 +9,14 @@
 .page-header h1 {
   margin: 0;
   font-size: 1.8rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .blog-post-form {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
   padding: 1.5rem;
 }
 
@@ -50,52 +50,54 @@
 .form-group-blog select {
   width: 100%;
   padding: 0.625rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.375rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
   font-size: 0.875rem;
-  transition: border-color 0.2s;
+  transition: border-color var(--transition-fast);
+  background-color: var(--card-background);
+  color: var(--text-primary);
 }
 
 .form-group-blog input[type="text"]:focus,
 .form-group-blog textarea:focus,
 .form-group-blog select:focus {
   outline: none;
-  border-color: #4f46e5;
+  border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
 }
 
 .form-group-blog.has-error input[type="text"],
 .form-group-blog.has-error textarea,
 .form-group-blog.has-error select {
-  border-color: #ef4444;
+  border-color: var(--error-color);
 }
 
 .error-message {
-  color: #ef4444;
+  color: var(--error-color);
   font-size: 0.75rem;
   margin-top: 0.25rem;
 }
 
 .field-hint {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin-top: 0.25rem;
 }
 
 .image-upload-group {
-  background-color: #f9fafb;
+  background-color: var(--divider-color);
   padding: 1rem;
-  border-radius: 0.5rem;
-  border: 1px dashed #d1d5db;
+  border-radius: var(--border-radius-md);
+  border: 1px dashed var(--border-color);
 }
 
 .image-preview-container {
   width: 100%;
   height: 180px;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius-md);
   overflow: hidden;
   margin-bottom: 1rem;
-  background-color: #f3f4f6;
+  background-color: var(--divider-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,7 +110,7 @@
 }
 
 .no-image-placeholder {
-  color: #9ca3af;
+  color: var(--text-secondary);
   font-size: 0.875rem;
 }
 
@@ -125,17 +127,17 @@
   display: block;
   width: 100%;
   padding: 0.5rem;
-  background-color: #4f46e5;
+  background-color: var(--primary-color);
   color: white;
   text-align: center;
-  border-radius: 0.375rem;
+  border-radius: var(--border-radius-md);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
   font-weight: normal;
 }
 
 .file-input-label:hover {
-  background-color: #4338ca;
+  background-color: var(--primary-color-hover);
 }
 
 .checkbox-group {
@@ -165,35 +167,35 @@
   justify-content: flex-end;
   gap: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-color);
 }
 
 .btn {
   padding: 0.6rem 1.2rem;
-  border-radius: 0.4rem;
+  border-radius: var(--border-radius-md);
   font-weight: 500;
   cursor: pointer;
   border: none;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .btn-primary {
-  background-color: #4f46e5;
+  background-color: var(--primary-color);
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #4338ca;
+  background-color: var(--primary-color-hover);
 }
 
 .btn-outline {
   background-color: transparent;
-  border: 1px solid #d1d5db;
-  color: #4b5563;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
 
 .btn-outline:hover {
-  background-color: #f9fafb;
+  background-color: var(--divider-color);
 }
 
 .btn:disabled {
@@ -214,7 +216,7 @@
   height: 40px;
   border: 3px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  border-top-color: #4f46e5;
+  border-top-color: var(--primary-color);
   animation: spin 1s ease-in-out infinite;
   margin-bottom: 1rem;
 }

@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { FaBars, FaUserCircle, FaSignOutAlt, FaCog } from 'react-icons/fa';
+import ThemeToggle from './ThemeToggle';
+import '../../styles/Navbar.css';
 
 const Navbar = ({ toggleMobileSidebar }) => {
   const { currentUser, logout } = useAuth();
@@ -26,6 +28,8 @@ const Navbar = ({ toggleMobileSidebar }) => {
       setPageTitle('Publicaciones');
     } else if (path.includes('/escuelas')) {
       setPageTitle('Escuelas');
+    } else if (path.includes('/blog')) {
+      setPageTitle('Blog');
     } else if (path.includes('/configuracion')) {
       setPageTitle('Configuración');
     }
@@ -55,17 +59,19 @@ const Navbar = ({ toggleMobileSidebar }) => {
   };
 
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div className="navbar-left">
-        <button className="toggle-sidebar" onClick={toggleMobileSidebar}>
+        <button className="menu-toggle" onClick={toggleMobileSidebar} aria-label="Toggle menu">
           <FaBars />
         </button>
         <h1 className="page-title">{pageTitle}</h1>
       </div>
-      
       <div className="navbar-right">
-        <div className="user-dropdown" ref={dropdownRef}>
-          <div onClick={toggleDropdown} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+        <div className="theme-toggle-container">
+          <ThemeToggle />
+        </div>
+        <div className="user-dropdown-container" ref={dropdownRef}>
+          <button className="user-dropdown-button" onClick={toggleDropdown}>
             {currentUser?.profile?.profilePicture ? (
               <img 
                 src={currentUser.profile.profilePicture} 
@@ -73,30 +79,30 @@ const Navbar = ({ toggleMobileSidebar }) => {
                 className="user-avatar"
               />
             ) : (
-              <FaUserCircle style={{ fontSize: '36px', color: '#64748b' }} />
+              <FaUserCircle className="user-icon" />
             )}
-          </div>
-          
+            <span className="user-name">{currentUser?.fullName || currentUser?.username}</span>
+          </button>
           <div className={`dropdown-menu ${dropdownOpen ? 'active' : ''}`}>
-            <div className="dropdown-item">
-              <div style={{ padding: '5px 10px', fontSize: '14px' }}>
-                <div style={{ fontWeight: 'bold' }}>{currentUser?.fullName || currentUser?.username}</div>
-                <div style={{ color: '#64748b', fontSize: '12px' }}>{currentUser?.email}</div>
+            <div className="dropdown-header">
+              <div className="user-info">
+                <div className="user-full-name">{currentUser?.fullName || currentUser?.username}</div>
+                <div className="user-email">{currentUser?.email}</div>
               </div>
             </div>
-            <div style={{ borderTop: '1px solid #e2e8f0', margin: '5px 0' }}></div>
+            <div className="dropdown-divider"></div>
             <a href="/configuracion" className="dropdown-item">
               <FaCog className="dropdown-item-icon" />
               <span>Configuración</span>
             </a>
-            <div onClick={handleLogout} className="dropdown-item">
+            <button onClick={handleLogout} className="dropdown-item">
               <FaSignOutAlt className="dropdown-item-icon" />
               <span>Cerrar sesión</span>
-            </div>
+            </button>
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

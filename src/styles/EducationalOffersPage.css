@@ -9,7 +9,7 @@
 .educational-offers-header h1 {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -32,23 +32,23 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: #555;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  color: var(--text-primary);
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .filter-toggle-btn:hover {
-  background-color: #e0e0e0;
+  background-color: var(--divider-color);
 }
 
 .filter-toggle-btn.active {
-  background-color: #e3f2fd;
-  border-color: #bbdefb;
-  color: #1976d2;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--text-white);
 }
 
 .filters-panel {
@@ -56,10 +56,10 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 15px;
-  background-color: #f9fafb;
-  border-radius: 8px;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
   margin-bottom: 20px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   align-items: flex-end;
 }
 
@@ -70,7 +70,7 @@
 .filter-group label {
   display: block;
   margin-bottom: 8px;
-  color: #555;
+  color: var(--text-secondary);
   font-size: 14px;
   font-weight: 500;
 }
@@ -78,10 +78,10 @@
 .filter-select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
   font-size: 14px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .reset-filters-btn {
@@ -92,31 +92,31 @@
 .table-responsive {
   overflow-x: auto;
   margin-bottom: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .educational-offers-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white;
+  background-color: var(--card-background);
 }
 
 .educational-offers-table th, .educational-offers-table td {
   padding: 14px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .educational-offers-table th {
   font-weight: 600;
-  color: #555;
-  background-color: #f9f9f9;
+  color: var(--text-primary);
+  background-color: var(--card-background);
   font-size: 14px;
 }
 
 .educational-offers-table tbody tr:hover {
-  background-color: #f9f9f9;
+  background-color: var(--divider-color);
 }
 
 .offer-title-cell {
@@ -133,9 +133,9 @@
 .featured-badge {
   display: inline-block;
   padding: 3px 6px;
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border-radius: 4px;
+  background-color: var(--success-color);
+  color: var(--text-white);
+  border-radius: var(--border-radius-md);
   font-size: 12px;
   font-weight: 500;
 }
@@ -143,35 +143,35 @@
 .status-badge {
   display: inline-block;
   padding: 4px 10px;
-  border-radius: 20px;
+  border-radius: var(--border-radius-md);
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
 }
 
 .status-badge.active {
-  background-color: rgba(46, 204, 113, 0.15);
-  color: #27ae60;
+  background-color: var(--primary-color);
+  color: var(--text-white);
 }
 
 .status-badge.inactive {
-  background-color: rgba(231, 76, 60, 0.15);
-  color: #e74c3c;
+  background-color: var(--danger-color);
+  color: var(--text-white);
 }
 
 .status-badge.pending {
-  background-color: rgba(243, 156, 18, 0.15);
-  color: #f39c12;
+  background-color: var(--warning-color);
+  color: var(--text-white);
 }
 
 .status-badge.paused {
-  background-color: rgba(52, 152, 219, 0.15);
-  color: #3498db;
+  background-color: var(--info-color);
+  color: var(--text-white);
 }
 
 .status-badge.default {
-  background-color: rgba(149, 165, 166, 0.15);
-  color: #7f8c8d;
+  background-color: var(--divider-color);
+  color: var(--text-secondary);
 }
 
 .status-cell {
@@ -191,15 +191,27 @@
   left: 0;
   z-index: 10;
   width: 140px;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
   padding: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   opacity: 0;
   transform: translateY(-10px);
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   pointer-events: none;
+}
+
+.status-select-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: var(--border-radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  color: var(--text-primary);
 }
 
 .filters-container {
@@ -219,8 +231,8 @@
 
 .status-filter-select {
   padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
   background: white;
   font-size: 14px;
   min-width: 150px;
@@ -228,16 +240,16 @@
 
 .apply-filter {
   padding: 0.5rem 1rem;
-  background-color: #4b5563;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-white);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--border-radius-md);
   cursor: pointer;
   font-size: 14px;
 }
 
 .apply-filter:hover {
-  background-color: #374151;
+  background-color: var(--primary-color-dark);
 }
 
 .actions-cell {
@@ -248,31 +260,28 @@
 .action-btn {
   width: 32px;
   height: 32px;
-  border-radius: 4px;
+  border-radius: var(--border-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
-  border: none;
-  color: #555;
   cursor: pointer;
-  transition: background-color 0.2s;
+  background-color: var(--card-background);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
 }
 
 .action-btn:hover {
-  background-color: #f5f5f5;
-}
-
-.action-btn.view-btn:hover {
-  color: #1976d2;
+  background-color: var(--primary-hover);
+  color: var(--primary-color);
 }
 
 .action-btn.edit-btn:hover {
-  color: #ff9800;
+  color: var(--primary-color);
 }
 
 .action-btn.delete-btn:hover {
-  color: #c62828;
+  color: var(--error-color);
 }
 
 .pagination {
@@ -285,16 +294,16 @@
 
 .pagination-btn {
   padding: 8px 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: white;
-  color: #333;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--card-background);
+  color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .pagination-btn:hover:not(:disabled) {
-  background-color: #f5f5f5;
+  background-color: var(--primary-hover);
 }
 
 .pagination-btn:disabled {
@@ -304,20 +313,48 @@
 
 .pagination-info {
   font-size: 14px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
-.no-results {
+.no-results-container {
+  padding: 40px;
+  text-align: center;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.loading-container {
   text-align: center;
   padding: 40px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.no-results p {
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto 15px;
+}
+
+.error-container {
+  text-align: center;
+  padding: 40px;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.error-container h2 {
+  color: var(--error-color);
+  margin-bottom: 15px;
+}
+
+.error-container p {
+  color: var(--text-secondary);
   margin-bottom: 20px;
-  color: #666;
 }
 
 @media (max-width: 768px) {

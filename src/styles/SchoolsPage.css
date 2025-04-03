@@ -9,7 +9,7 @@
 .schools-header h1 {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -29,9 +29,10 @@
 
 .search-input-container {
   display: flex;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
+  background-color: var(--card-background);
 }
 
 .search-input {
@@ -39,6 +40,8 @@
   padding: 10px 15px;
   border: none;
   font-size: 14px;
+  background-color: var(--card-background);
+  color: var(--text-primary);
 }
 
 .search-input:focus {
@@ -46,16 +49,19 @@
 }
 
 .search-btn {
-  background-color: #f5f5f5;
+  background-color: var(--primary-color);
   border: none;
   padding: 0 15px;
   cursor: pointer;
-  color: #555;
-  transition: background-color 0.2s;
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast);
 }
 
 .search-btn:hover {
-  background-color: #e0e0e0;
+  background-color: var(--primary-hover);
 }
 
 .filter-toggle-btn {
@@ -63,23 +69,23 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: #555;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  color: var(--text-primary);
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .filter-toggle-btn:hover {
-  background-color: #e0e0e0;
+  background-color: var(--primary-hover);
 }
 
 .filter-toggle-btn.active {
-  background-color: #e3f2fd;
-  border-color: #bbdefb;
-  color: #1976d2;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--text-white);
 }
 
 .filters-panel {
@@ -87,10 +93,10 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 15px;
-  background-color: #f9fafb;
-  border-radius: 8px;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
   margin-bottom: 20px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   align-items: flex-end;
 }
 
@@ -101,7 +107,7 @@
 .filter-group label {
   display: block;
   margin-bottom: 8px;
-  color: #555;
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 500;
 }
@@ -109,15 +115,25 @@
 .filter-select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
   font-size: 14px;
-  color: #333;
+  color: var(--text-primary);
+  background-color: var(--card-background);
 }
 
 .reset-filters-btn {
   height: 38px;
   padding: 0 20px;
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--text-white);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.reset-filters-btn:hover {
+  background-color: var(--primary-hover);
 }
 
 /* Grid Layout for Schools */
@@ -129,23 +145,23 @@
 }
 
 .school-card {
-  background-color: white;
-  border-radius: 8px;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .school-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .school-image {
   height: 140px;
-  background-color: #f0f0f0;
+  background-color: var(--card-background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,7 +179,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #888;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
@@ -178,7 +194,7 @@
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 15px 0;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .school-details {
@@ -195,16 +211,16 @@
 
 .detail-label {
   font-weight: 500;
-  color: #555;
+  color: var(--text-primary);
   margin-bottom: 2px;
 }
 
 .detail-value {
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .detail-value a {
-  color: #1976d2;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -217,37 +233,37 @@
   gap: 10px;
   justify-content: flex-end;
   padding-top: 10px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
 }
 
 .action-btn {
   width: 32px;
   height: 32px;
-  border-radius: 4px;
+  border-radius: var(--border-radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   background: none;
   border: none;
-  color: #555;
+  color: var(--text-primary);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
 }
 
 .action-btn:hover {
-  background-color: #f5f5f5;
+  background-color: var(--primary-hover);
 }
 
 .action-btn.view-btn:hover {
-  color: #1976d2;
+  color: var(--primary-color);
 }
 
 .action-btn.edit-btn:hover {
-  color: #ff9800;
+  color: var(--primary-color);
 }
 
 .action-btn.delete-btn:hover {
-  color: #c62828;
+  color: var(--error-color);
 }
 
 .pagination {
@@ -260,16 +276,16 @@
 
 .pagination-btn {
   padding: 8px 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: white;
-  color: #333;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--card-background);
+  color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .pagination-btn:hover:not(:disabled) {
-  background-color: #f5f5f5;
+  background-color: var(--primary-hover);
 }
 
 .pagination-btn:disabled {
@@ -279,28 +295,31 @@
 
 .pagination-info {
   font-size: 14px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
-.no-results {
-  text-align: center;
+.no-results-container {
   padding: 40px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
-.no-results p {
+.no-results-container h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+}
+
+.no-results-container p {
   margin-bottom: 20px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 0;
+  text-align: center;
+  padding: 40px;
 }
 
 .spinner {
@@ -308,33 +327,38 @@
   height: 40px;
   border: 3px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  border-top-color: #3498db;
+  border-top-color: var(--primary-color);
   animation: spin 1s ease-in-out infinite;
-  margin-bottom: 15px;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  margin: 0 auto 15px;
 }
 
 .error-container {
   text-align: center;
   padding: 40px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .error-container h2 {
-  color: #e53935;
+  color: var(--error-color);
   margin-bottom: 15px;
 }
 
 .error-container p {
+  color: var(--text-secondary);
   margin-bottom: 20px;
-  color: #666;
+}
+
+.school-address,
+.school-contact,
+.school-website {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 
 /* Responsive */
@@ -358,5 +382,11 @@
   
   .schools-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
