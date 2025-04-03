@@ -62,7 +62,7 @@ const Sidebar = ({ isMobileOpen, toggleMobileSidebar }) => {
             <span className="sidebar-link-text">Blog</span>
           </NavLink>
           
-          <NavLink to="/escuelas" className="sidebar-link" onClick={closeSidebar}>
+          <NavLink to="/schools" className="sidebar-link" onClick={closeSidebar}>
             <FaSchool className="sidebar-link-icon" />
             <span className="sidebar-link-text">Escuelas</span>
           </NavLink>

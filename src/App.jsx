@@ -9,7 +9,9 @@ import EditOfferPage from './pages/EditOfferPage'
 import EducationalOffersPage from './pages/EducationalOffersPage'
 import EditEducationalOfferPage from './pages/EditEducationalOfferPage'
 import PostsPage from './pages/PostsPage'
+import PostFormPage from './pages/PostFormPage'
 import SchoolsPage from './pages/SchoolsPage'
+import SchoolFormPage from './pages/SchoolFormPage'
 import BlogPage from './pages/BlogPage'
 import BlogPostFormPage from './pages/BlogPostFormPage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -45,7 +47,12 @@ function App() {
           <Route path="ofertas-educativas" element={<EducationalOffersPage />} />
           <Route path="ofertas-educativas/:offerId" element={<EditEducationalOfferPage />} />
           <Route path="posts" element={<PostsPage />} />
-          <Route path="escuelas" element={<SchoolsPage />} />
+          <Route path="posts/new" element={<PostFormPage />} />
+          <Route path="posts/edit/:postId" element={<PostFormPage />} />
+          <Route path="posts/:postId" element={<PostFormPage view={true} />} />
+          <Route path="schools" element={<SchoolsPage />} />
+          <Route path="schools/new" element={<SchoolFormPage />} />
+          <Route path="schools/edit/:schoolId" element={<SchoolFormPage />} />
           <Route path="blog" element={<BlogPage />} />
           <Route path="blog/crear" element={<BlogPostFormPage />} />
           <Route path="blog/:postId" element={<BlogPostFormPage />} />
