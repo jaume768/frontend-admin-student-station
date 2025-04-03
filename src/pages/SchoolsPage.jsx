@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react';
-import { FaSearch, FaFilter, FaEdit, FaEye, FaTrash, FaGraduationCap } from 'react-icons/fa';
 import { getSchools } from '../services/schoolService';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SchoolsPage.css';
+
+// Importar iconos de assets en lugar de react-icons
+import iconEye from '../assets/icons/icon-eye.svg';
+import iconEdit from '../assets/icons/icon-edit.svg';
+import iconTrash from '../assets/icons/icon-trash.svg';
+import iconSearch from '../assets/icons/icon-search.svg';
+import iconFilter from '../assets/icons/icon-filter.svg';
+import iconGraduation from '../assets/icons/icon-graduation.svg';
 
 const SchoolsPage = () => {
   const [schools, setSchools] = useState([]);
@@ -159,7 +166,7 @@ const SchoolsPage = () => {
               className="search-input"
             />
             <button type="submit" className="search-btn">
-              <FaSearch />
+              <img src={iconSearch} alt="Buscar" className="search-icon" />
             </button>
           </div>
         </form>
@@ -168,7 +175,8 @@ const SchoolsPage = () => {
           className={`filter-toggle-btn ${showFilters ? 'active' : ''}`}
           onClick={toggleFilters}
         >
-          <FaFilter /> Filtros
+          <img src={iconFilter} alt="Filtrar" className="filter-icon" />
+          Filtros
         </button>
       </div>
 
@@ -252,14 +260,14 @@ const SchoolsPage = () => {
                     title="Ver detalles"
                     onClick={() => handleViewSchool(school._id)}
                   >
-                    <FaEye />
+                    <img src={iconEye} alt="Ver" className="action-icon" />
                   </button>
                   <button 
                     className="action-btn programs-btn" 
                     title="Ver programas educativos"
                     onClick={() => handleViewPrograms(school._id, school.name)}
                   >
-                    <FaGraduationCap />
+                    <img src={iconGraduation} alt="Programas" className="action-icon" />
                   </button>
                 </div>
               </div>

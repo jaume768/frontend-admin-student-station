@@ -10,6 +10,8 @@ import EducationalOffersPage from './pages/EducationalOffersPage'
 import EditEducationalOfferPage from './pages/EditEducationalOfferPage'
 import PostsPage from './pages/PostsPage'
 import SchoolsPage from './pages/SchoolsPage'
+import BlogPage from './pages/BlogPage'
+import BlogPostFormPage from './pages/BlogPostFormPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Layout from './components/common/Layout'
 
@@ -44,6 +46,9 @@ function App() {
           <Route path="ofertas-educativas/:offerId" element={<EditEducationalOfferPage />} />
           <Route path="posts" element={<PostsPage />} />
           <Route path="escuelas" element={<SchoolsPage />} />
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="blog/crear" element={<BlogPostFormPage />} />
+          <Route path="blog/:postId" element={<BlogPostFormPage />} />
         </Route>
         
         {/* Ruta 404 */}

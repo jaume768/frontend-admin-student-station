@@ -7,6 +7,7 @@ import {
   FaGraduationCap,
   FaNewspaper, 
   FaSchool, 
+  FaBlog,
   FaCog
 } from 'react-icons/fa';
 
@@ -54,6 +55,11 @@ const Sidebar = ({ isMobileOpen, toggleMobileSidebar }) => {
           <NavLink to="/posts" className="sidebar-link" onClick={closeSidebar}>
             <FaNewspaper className="sidebar-link-icon" />
             <span className="sidebar-link-text">Posts</span>
+          </NavLink>
+          
+          <NavLink to="/blog" className="sidebar-link" onClick={closeSidebar}>
+            <FaBlog className="sidebar-link-icon" />
+            <span className="sidebar-link-text">Blog</span>
           </NavLink>
           
           <NavLink to="/escuelas" className="sidebar-link" onClick={closeSidebar}>
