@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import { getEducationalOffers, deleteEducationalOffer } from '../services/educationalOfferService';
+import { 
+  getEducationalOffers, 
+  deleteEducationalOffer, 
+  updateEducationalOfferStatus 
+} from '../services/educationalOfferService';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import '../styles/EducationalOffersPage.css';
@@ -107,14 +111,37 @@ const EducationalOffersPage = () => {
   };
 
   const handleViewOffer = (offerId) => {
-    // Aquí podría implementarse una vista detallada en una modal o
-    // redirigir a una página de detalles
-    window.open(`https://plataformaestudiantesmoda.com/ofertas-educativas/${offerId}`, '_blank');
+    const rutaFrontend = import.meta.env.VITE_RUTA_FRONTEND;
+    window.open(`${rutaFrontend}/ControlPanel/EducationalOfferDetail/${offerId}`, '_blank');
   };
 
   const handleEditOffer = (offerId) => {
-    // Navegar a la página de edición de la oferta
     navigate(`/ofertas-educativas/${offerId}`);
+  };
+
+  const handleStatusChange = async (offerId, offerTitle, currentStatus, newStatus) => {
+    if (currentStatus === newStatus) return;
+    
+    setConfirmAction({
+      type: 'status',
+      id: offerId,
+      name: offerTitle,
+      currentStatus,
+      newStatus,
+      onConfirm: async () => {
+        try {
+          await updateEducationalOfferStatus(offerId, newStatus);
+          toast.success(`Estado de la oferta educativa cambiado a ${newStatus}`);
+          fetchEducationalOffers();
+        } catch (error) {
+          console.error('Error al cambiar el estado de la oferta educativa:', error);
+          toast.error('Error al cambiar el estado de la oferta educativa');
+        } finally {
+          setConfirmAction(null);
+        }
+      },
+      onCancel: () => setConfirmAction(null)
+    });
   };
 
   const formatDate = (dateString) => {
@@ -130,17 +157,14 @@ const EducationalOffersPage = () => {
     let className = 'status-badge ';
     
     switch (status) {
-      case 'activa':
+      case 'accepted':
         className += 'active';
         break;
-      case 'inactiva':
+      case 'rejected':
         className += 'inactive';
         break;
-      case 'pendiente':
+      case 'pending':
         className += 'pending';
-        break;
-      case 'pausada':
-        className += 'paused';
         break;
       default:
         className += 'default';
@@ -148,10 +172,9 @@ const EducationalOffersPage = () => {
     
     return (
       <span className={className}>
-        {status === 'activa' ? 'Activa' : 
-         status === 'inactiva' ? 'Inactiva' : 
-         status === 'pendiente' ? 'Pendiente' : 
-         status === 'pausada' ? 'Pausada' : 'Desconocido'}
+        {status === 'accepted' ? 'Aceptada' : 
+         status === 'rejected' ? 'Rechazada' : 
+         status === 'pending' ? 'Pendiente' : 'Desconocido'}
       </span>
     );
   };
@@ -191,31 +214,59 @@ const EducationalOffersPage = () => {
   const renderConfirmDialog = () => {
     if (!confirmAction) return null;
 
-    const title = 'Eliminar oferta educativa';
-    const message = `¿Estás seguro de que deseas eliminar la oferta educativa "${confirmAction.name}"? Esta acción no se puede deshacer.`;
+    if (confirmAction.type === 'delete') {
+      const title = 'Eliminar oferta educativa';
+      const message = `¿Estás seguro de que deseas eliminar la oferta educativa "${confirmAction.name}"? Esta acción no se puede deshacer.`;
 
-    return (
-      <div className="confirm-dialog-overlay">
-        <div className="confirm-dialog">
-          <h3>{title}</h3>
-          <p>{message}</p>
-          <div className="confirm-actions">
-            <button 
-              className="btn btn-outline" 
-              onClick={confirmAction.onCancel}
-            >
-              Cancelar
-            </button>
-            <button 
-              className="btn btn-danger" 
-              onClick={confirmAction.onConfirm}
-            >
-              Eliminar
-            </button>
+      return (
+        <div className="confirm-dialog-overlay">
+          <div className="confirm-dialog">
+            <h3>{title}</h3>
+            <p>{message}</p>
+            <div className="confirm-actions">
+              <button 
+                className="btn btn-outline" 
+                onClick={confirmAction.onCancel}
+              >
+                Cancelar
+              </button>
+              <button 
+                className="btn btn-danger" 
+                onClick={confirmAction.onConfirm}
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else if (confirmAction.type === 'status') {
+      const title = 'Cambiar estado de oferta educativa';
+      const message = `¿Estás seguro de que deseas cambiar el estado de la oferta educativa "${confirmAction.name}" de ${confirmAction.currentStatus} a ${confirmAction.newStatus}?`;
+
+      return (
+        <div className="confirm-dialog-overlay">
+          <div className="confirm-dialog">
+            <h3>{title}</h3>
+            <p>{message}</p>
+            <div className="confirm-actions">
+              <button 
+                className="btn btn-outline" 
+                onClick={confirmAction.onCancel}
+              >
+                Cancelar
+              </button>
+              <button 
+                className="btn btn-primary" 
+                onClick={confirmAction.onConfirm}
+              >
+                Cambiar estado
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
   };
 
   if (loading && offers.length === 0) {
@@ -286,10 +337,9 @@ const EducationalOffersPage = () => {
               className="filter-select"
             >
               <option value="">Todos</option>
-              <option value="activa">Activas</option>
-              <option value="inactiva">Inactivas</option>
-              <option value="pendiente">Pendientes</option>
-              <option value="pausada">Pausadas</option>
+              <option value="accepted">Aceptadas</option>
+              <option value="pending">Pendientes</option>
+              <option value="rejected">Rechazadas</option>
             </select>
           </div>
           
@@ -327,7 +377,20 @@ const EducationalOffersPage = () => {
                   <td>{offer.institutionName}</td>
                   <td>{formatDate(offer.publicationDate)}</td>
                   <td>{offer.modality}</td>
-                  <td>{getStatusBadge(offer.status)}</td>
+                  <td>
+                    <div className="status-cell">
+                      {getStatusBadge(offer.status)}
+                      <select
+                        className="status-select"
+                        value={offer.status}
+                        onChange={(e) => handleStatusChange(offer._id, offer.title, offer.status, e.target.value)}
+                      >
+                        <option value="accepted">Aceptada</option>
+                        <option value="pending">Pendiente</option>
+                        <option value="rejected">Rechazada</option>
+                      </select>
+                    </div>
+                  </td>
                   <td className="actions-cell">
                     <button 
                       className="action-btn view-btn" 

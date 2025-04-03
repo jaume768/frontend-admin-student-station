@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { 
@@ -11,17 +10,12 @@ import {
   FaCog
 } from 'react-icons/fa';
 
-const Sidebar = () => {
+const Sidebar = ({ isMobileOpen, toggleMobileSidebar }) => {
   const { currentUser } = useAuth();
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-
-  const toggleMobileSidebar = () => {
-    setIsMobileOpen(!isMobileOpen);
-  };
 
   const closeSidebar = () => {
     if (isMobileOpen) {
-      setIsMobileOpen(false);
+      toggleMobileSidebar();
     }
   };
 

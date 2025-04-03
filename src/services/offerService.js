@@ -26,3 +26,8 @@ export const deleteOffer = async (offerId) => {
   const response = await api.delete(`/api/admin/offers/${offerId}`);
   return response.data;
 };
+
+export const updateOfferStatus = async (offerId, status) => {
+  const response = await api.put(`/api/admin/offers/${offerId}/status`, { status });
+  return response.data;
+};

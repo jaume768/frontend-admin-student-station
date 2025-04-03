@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getOffers, deleteOffer } from '../services/offerService';
+import { getOffers, deleteOffer, updateOfferStatus } from '../services/offerService';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/OffersPage.css';
@@ -115,13 +115,11 @@ const OffersPage = () => {
   };
 
   const handleViewOffer = (offerId) => {
-    // Aquí podría implementarse una vista detallada en una modal o
-    // redirigir a una página de detalles
-    window.open(`https://plataformaestudiantesmoda.com/ofertas/${offerId}`, '_blank');
+    const rutaFrontend = import.meta.env.VITE_RUTA_FRONTEND;
+    window.open(`${rutaFrontend}/ControlPanel/JobOfferDetail/${offerId}`, '_blank');
   };
 
   const handleEditOffer = (offerId) => {
-    // Navegar a la página de edición de la oferta
     navigate(`/ofertas/${offerId}`);
   };
 
@@ -138,17 +136,14 @@ const OffersPage = () => {
     let className = 'status-badge ';
     
     switch (status) {
-      case 'activa':
+      case 'accepted':
         className += 'active';
         break;
-      case 'inactiva':
+      case 'cancelled':
         className += 'inactive';
         break;
-      case 'pendiente':
+      case 'pending':
         className += 'pending';
-        break;
-      case 'pausada':
-        className += 'paused';
         break;
       default:
         className += 'default';
@@ -156,12 +151,36 @@ const OffersPage = () => {
     
     return (
       <span className={className}>
-        {status === 'activa' ? 'Activa' : 
-         status === 'inactiva' ? 'Inactiva' : 
-         status === 'pendiente' ? 'Pendiente' : 
-         status === 'pausada' ? 'Pausada' : 'Desconocido'}
+        {status === 'accepted' ? 'Aceptada' : 
+         status === 'cancelled' ? 'Cancelada' : 
+         status === 'pending' ? 'Pendiente' : 'Desconocido'}
       </span>
     );
+  };
+
+  const handleStatusChange = async (offerId, offerTitle, currentStatus, newStatus) => {
+    if (currentStatus === newStatus) return;
+    
+    setConfirmAction({
+      type: 'status',
+      id: offerId,
+      name: offerTitle,
+      currentStatus,
+      newStatus,
+      onConfirm: async () => {
+        try {
+          await updateOfferStatus(offerId, newStatus);
+          toast.success(`Estado de la oferta cambiado a ${newStatus}`);
+          fetchOffers();
+        } catch (error) {
+          console.error('Error al cambiar el estado de la oferta:', error);
+          toast.error('Error al cambiar el estado de la oferta');
+        } finally {
+          setConfirmAction(null);
+        }
+      },
+      onCancel: () => setConfirmAction(null)
+    });
   };
 
   const changePage = (page) => {
@@ -199,31 +218,59 @@ const OffersPage = () => {
   const renderConfirmDialog = () => {
     if (!confirmAction) return null;
 
-    const title = 'Eliminar oferta';
-    const message = `¿Estás seguro de que deseas eliminar la oferta "${confirmAction.name}"? Esta acción no se puede deshacer.`;
+    if (confirmAction.type === 'delete') {
+      const title = 'Eliminar oferta';
+      const message = `¿Estás seguro de que deseas eliminar la oferta "${confirmAction.name}"? Esta acción no se puede deshacer.`;
 
-    return (
-      <div className="confirm-dialog-overlay">
-        <div className="confirm-dialog">
-          <h3>{title}</h3>
-          <p>{message}</p>
-          <div className="confirm-actions">
-            <button 
-              className="btn btn-outline" 
-              onClick={confirmAction.onCancel}
-            >
-              Cancelar
-            </button>
-            <button 
-              className="btn btn-danger" 
-              onClick={confirmAction.onConfirm}
-            >
-              Eliminar
-            </button>
+      return (
+        <div className="confirm-dialog-overlay">
+          <div className="confirm-dialog">
+            <h3>{title}</h3>
+            <p>{message}</p>
+            <div className="confirm-actions">
+              <button 
+                className="btn btn-outline" 
+                onClick={confirmAction.onCancel}
+              >
+                Cancelar
+              </button>
+              <button 
+                className="btn btn-danger" 
+                onClick={confirmAction.onConfirm}
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else if (confirmAction.type === 'status') {
+      const title = 'Cambiar estado de oferta';
+      const message = `¿Estás seguro de que deseas cambiar el estado de la oferta "${confirmAction.name}" de ${confirmAction.currentStatus} a ${confirmAction.newStatus}?`;
+
+      return (
+        <div className="confirm-dialog-overlay">
+          <div className="confirm-dialog">
+            <h3>{title}</h3>
+            <p>{message}</p>
+            <div className="confirm-actions">
+              <button 
+                className="btn btn-outline" 
+                onClick={confirmAction.onCancel}
+              >
+                Cancelar
+              </button>
+              <button 
+                className="btn btn-primary" 
+                onClick={confirmAction.onConfirm}
+              >
+                Cambiar estado
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
   };
 
   if (loading && offers.length === 0) {
@@ -294,10 +341,9 @@ const OffersPage = () => {
               className="filter-select"
             >
               <option value="">Todos</option>
-              <option value="activa">Activas</option>
-              <option value="inactiva">Inactivas</option>
-              <option value="pendiente">Pendientes</option>
-              <option value="pausada">Pausadas</option>
+              <option value="accepted">Aceptadas</option>
+              <option value="pending">Pendientes</option>
+              <option value="cancelled">Canceladas</option>
             </select>
           </div>
           
@@ -335,7 +381,20 @@ const OffersPage = () => {
                   <td>{offer.companyName}</td>
                   <td>{formatDate(offer.publicationDate)}</td>
                   <td>{offer.city}</td>
-                  <td>{getStatusBadge(offer.status)}</td>
+                  <td>
+                    <div className="status-cell">
+                      {getStatusBadge(offer.status)}
+                      <select
+                        className="status-select"
+                        value={offer.status}
+                        onChange={(e) => handleStatusChange(offer._id, offer.position, offer.status, e.target.value)}
+                      >
+                        <option value="accepted">Aceptada</option>
+                        <option value="pending">Pendiente</option>
+                        <option value="cancelled">Cancelada</option>
+                      </select>
+                    </div>
+                  </td>
                   <td className="actions-cell">
                     <button 
                       className="action-btn view-btn" 

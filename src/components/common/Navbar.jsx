@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { FaBars, FaUserCircle, FaSignOutAlt, FaCog } from 'react-icons/fa';
 
-const Navbar = () => {
+const Navbar = ({ toggleMobileSidebar }) => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -57,7 +57,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-left">
-        <button className="toggle-sidebar">
+        <button className="toggle-sidebar" onClick={toggleMobileSidebar}>
           <FaBars />
         </button>
         <h1 className="page-title">{pageTitle}</h1>

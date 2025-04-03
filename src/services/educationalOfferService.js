@@ -26,3 +26,8 @@ export const deleteEducationalOffer = async (offerId) => {
   const response = await api.delete(`/api/admin/educational-offers/${offerId}`);
   return response.data;
 };
+
+export const updateEducationalOfferStatus = async (offerId, status) => {
+  const response = await api.put(`/api/admin/educational-offers/${offerId}/status`, { status });
+  return response.data;
+};

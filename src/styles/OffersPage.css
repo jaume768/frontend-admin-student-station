@@ -142,35 +142,102 @@
 
 .status-badge {
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
   font-size: 12px;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .status-badge.active {
-  background-color: #e8f5e9;
-  color: #2e7d32;
+  background-color: rgba(46, 204, 113, 0.15);
+  color: #27ae60;
 }
 
 .status-badge.inactive {
-  background-color: #f5f5f5;
-  color: #757575;
+  background-color: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
 }
 
 .status-badge.pending {
-  background-color: #fff8e1;
-  color: #f57c00;
+  background-color: rgba(243, 156, 18, 0.15);
+  color: #f39c12;
 }
 
 .status-badge.paused {
-  background-color: #e3f2fd;
-  color: #1976d2;
+  background-color: rgba(52, 152, 219, 0.15);
+  color: #3498db;
 }
 
 .status-badge.default {
-  background-color: #f5f5f5;
-  color: #757575;
+  background-color: rgba(149, 165, 166, 0.15);
+  color: #7f8c8d;
+}
+
+.status-cell {
+  position: relative;
+  cursor: pointer;
+}
+
+.status-cell:hover .status-select {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.status-select {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  width: 140px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.status-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-filter-select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  font-size: 14px;
+  min-width: 150px;
+}
+
+.apply-filter {
+  padding: 0.5rem 1rem;
+  background-color: #4b5563;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.apply-filter:hover {
+  background-color: #374151;
 }
 
 .actions-cell {
@@ -289,5 +356,14 @@
   
   .offers-table {
     min-width: 700px;
+  }
+  
+  .filters-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-container, .status-filter {
+    width: 100%;
   }
 }
