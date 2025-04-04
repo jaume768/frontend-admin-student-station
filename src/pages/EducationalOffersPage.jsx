@@ -185,7 +185,7 @@ const EducationalOffersPage = () => {
 
   const renderPagination = () => {
     if (totalPages <= 1) return null;
-
+  
     return (
       <div className="pagination">
         <button 
@@ -193,7 +193,7 @@ const EducationalOffersPage = () => {
           disabled={currentPage === 1}
           className="pagination-btn"
         >
-          Anterior
+          &lt;
         </button>
         
         <div className="pagination-info">
@@ -205,7 +205,7 @@ const EducationalOffersPage = () => {
           disabled={currentPage === totalPages}
           className="pagination-btn"
         >
-          Siguiente
+          &gt;
         </button>
       </div>
     );

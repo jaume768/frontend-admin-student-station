@@ -215,6 +215,10 @@
   margin-bottom: 5px;
 }
 
+.action-content {
+  margin-left: 15px;
+}
+
 .action-content p {
   color: var(--text-secondary);
   font-size: 14px;

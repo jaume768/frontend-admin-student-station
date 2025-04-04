@@ -30,9 +30,10 @@ const SchoolFormPage = () => {
         
         if (response.success) {
           const school = response.school;
+          console.log(school);
           setFormData({
-            name: school.name || '',
-            type: school.type || '',
+            name: school.companyName || '',
+            type: school.role || '',
             city: school.city || ''
           });
         } else {

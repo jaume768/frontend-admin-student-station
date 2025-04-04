@@ -111,7 +111,7 @@ const SchoolsPage = () => {
   };
 
   const handleViewEducationalOffers = (schoolId) => {
-    navigate(`/educational-offers?school=${schoolId}`);
+    navigate(`/ofertas-educativas?escuelaId=${schoolId}`);
   };
 
   const changePage = (page) => {
@@ -129,7 +129,7 @@ const SchoolsPage = () => {
             disabled={currentPage === 1}
             className="pagination-btn"
           >
-            Anterior
+            &lt;
           </button>
           
           <div className="pagination-info">
@@ -141,7 +141,7 @@ const SchoolsPage = () => {
             disabled={currentPage === totalPages}
             className="pagination-btn"
           >
-            Siguiente
+            &gt;
           </button>
         </div>
       </div>
@@ -278,29 +278,6 @@ const SchoolsPage = () => {
                   </button>
                 </div>
               </div>
-              
-              {deleteConfirm === school._id && (
-                <div className="delete-confirm">
-                  <div className="delete-confirm-content">
-                    <p>¿Estás seguro de que deseas eliminar esta escuela?</p>
-                    <p className="delete-warning">Esto también eliminará todos los programas educativos asociados.</p>
-                    <div className="delete-actions">
-                      <button 
-                        className="btn btn-danger"
-                        onClick={() => handleDeleteSchool(school._id)}
-                      >
-                        Eliminar
-                      </button>
-                      <button 
-                        className="btn btn-secondary"
-                        onClick={handleDeleteCancel}
-                      >
-                        Cancelar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -320,6 +297,33 @@ const SchoolsPage = () => {
       )}
 
       {renderPagination()}
+
+      {/* Modal de confirmación de eliminación */}
+      {deleteConfirm && (
+        <div className="school-delete-modal-overlay">
+          <div className="school-delete-modal">
+            <div className="school-delete-modal-content">
+              <h3 className="school-delete-modal-title">Confirmar eliminación</h3>
+              <p className="school-delete-modal-message">¿Estás seguro de que deseas eliminar esta escuela?</p>
+              <p className="school-delete-modal-warning">Esto también eliminará todos los programas educativos asociados.</p>
+              <div className="school-delete-modal-actions">
+                <button 
+                  className="school-delete-modal-btn school-delete-modal-btn-confirm"
+                  onClick={() => handleDeleteSchool(deleteConfirm)}
+                >
+                  Eliminar
+                </button>
+                <button 
+                  className="school-delete-modal-btn school-delete-modal-btn-cancel"
+                  onClick={handleDeleteCancel}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

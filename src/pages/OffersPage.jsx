@@ -197,7 +197,7 @@ const OffersPage = () => {
           disabled={currentPage === 1}
           className="pagination-btn"
         >
-          Anterior
+          &lt;
         </button>
         
         <div className="pagination-info">
@@ -209,7 +209,7 @@ const OffersPage = () => {
           disabled={currentPage === totalPages}
           className="pagination-btn"
         >
-          Siguiente
+          &gt;
         </button>
       </div>
     );
