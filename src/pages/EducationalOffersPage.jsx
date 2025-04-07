@@ -155,26 +155,34 @@ const EducationalOffersPage = () => {
 
   const getStatusBadge = (status) => {
     let className = 'status-badge ';
+    let statusText = '';
     
     switch (status) {
       case 'accepted':
         className += 'active';
+        statusText = 'Aceptada';
         break;
       case 'rejected':
+      case 'cancelled':
         className += 'inactive';
+        statusText = status === 'rejected' ? 'Rechazada' : 'Cancelada';
         break;
       case 'pending':
         className += 'pending';
+        statusText = 'Pendiente';
+        break;
+      case 'paused':
+        className += 'paused';
+        statusText = 'Pausada';
         break;
       default:
         className += 'default';
+        statusText = 'Desconocido';
     }
     
     return (
       <span className={className}>
-        {status === 'accepted' ? 'Aceptada' : 
-         status === 'rejected' ? 'Rechazada' : 
-         status === 'pending' ? 'Pendiente' : 'Desconocido'}
+        {statusText}
       </span>
     );
   };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaNewspaper, FaStar, FaTags, FaUserAlt } from 'react-icons/fa';
+import { FaNewspaper, FaStar, FaTags, FaUserAlt, FaBuilding, FaPaintBrush } from 'react-icons/fa';
 import '../../styles/StatsComponents.css';
 
 const ContentStats = ({ stats }) => {
@@ -33,25 +33,34 @@ const ContentStats = ({ stats }) => {
           <div className="stat-card">
             <div className="stat-header">
               <FaUserAlt className="stat-icon" />
-              <h3>Distribución por Usuarios</h3>
+              <h3>Distribución por Perfiles</h3>
             </div>
             <div className="distribution-chart">
-              {stats.posts.distribucionPorUsuario.map(item => (
-                <div className="distribution-item" key={item._id || 'sin-rol'}>
-                  <div className="distribution-label">{item._id || 'Sin rol'}</div>
-                  <div className="distribution-bar-container">
-                    <div 
-                      className="distribution-bar"
-                      style={{ 
-                        width: `${(item.count / stats.posts.total) * 100}%`,
-                        backgroundColor: item._id === 'Creativo' ? '#4c85ff' : 
-                                         item._id === 'Profesional' ? '#08b599' : '#f5a623'
-                      }}
-                    ></div>
+              {stats.posts.distribucionPorUsuario.map(item => {
+                // Determinar el icono y color basado en el tipo de usuario
+                const isCreativo = item._id === 'Creativo';
+                const Icon = isCreativo ? FaPaintBrush : FaBuilding;
+                const barColor = isCreativo ? 'var(--info-color)' : 'var(--success-color)';
+                
+                return (
+                  <div className="distribution-item" key={item._id || 'sin-tipo'}>
+                    <div className="distribution-label">
+                      <Icon className="distribution-icon" />
+                      {item._id || 'Sin tipo'}
+                    </div>
+                    <div className="distribution-bar-container">
+                      <div 
+                        className="distribution-bar"
+                        style={{ 
+                          width: `${(item.count / stats.posts.total) * 100}%`,
+                          backgroundColor: barColor
+                        }}
+                      ></div>
+                    </div>
+                    <div className="distribution-value">{item.count}</div>
                   </div>
-                  <div className="distribution-value">{item.count}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

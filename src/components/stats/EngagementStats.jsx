@@ -1,8 +1,10 @@
-import React from 'react';
-import { FaChartLine, FaUsers, FaBriefcase, FaCheck } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaChartLine, FaUsers, FaBriefcase, FaCheck, FaGlobeAmericas, FaCalendarAlt } from 'react-icons/fa';
 import '../../styles/StatsComponents.css';
 
 const EngagementStats = ({ stats }) => {
+  const [activeTab, setActiveTab] = useState('global');
+  
   if (!stats || !stats.ofertas) {
     return null;
   }
@@ -49,26 +51,77 @@ const EngagementStats = ({ stats }) => {
         </div>
       </div>
 
-      {stats.posts && stats.posts.masPopulares && stats.posts.masPopulares.length > 0 && (
+      {stats.posts && stats.posts.masPopulares && (
         <div className="popular-posts-section">
           <h3>Publicaciones Más Populares</h3>
-          <div className="popular-posts-list">
-            {stats.posts.masPopulares.map((post, index) => (
-              <div className="popular-post-card" key={post._id}>
-                <div className="post-rank">{index + 1}</div>
-                <div className="post-image">
-                  {post.mainImage ? (
-                    <img src={post.mainImage} alt={post.title} />
-                  ) : (
-                    <div className="no-image">Sin imagen</div>
-                  )}
+          
+          <div className="popular-posts-tabs">
+            <div className="tabs-header">
+              <button 
+                className={`tab-button ${activeTab === 'global' ? 'active' : ''}`}
+                onClick={() => setActiveTab('global')}
+              >
+                <FaGlobeAmericas className="tab-icon" />
+                Global
+              </button>
+              <button 
+                className={`tab-button ${activeTab === 'month' ? 'active' : ''}`}
+                onClick={() => setActiveTab('month')}
+              >
+                <FaCalendarAlt className="tab-icon" />
+                Último Mes
+              </button>
+            </div>
+            
+            <div className="tab-content">
+              {activeTab === 'global' && stats.posts.masPopulares.global && stats.posts.masPopulares.global.length > 0 && (
+                <div className="popular-posts-list">
+                  {stats.posts.masPopulares.global.map((post, index) => (
+                    <div className="popular-post-card" key={post._id}>
+                      <div className="post-rank">{index + 1}</div>
+                      <div className="post-image">
+                        {post.mainImage ? (
+                          <img src={post.mainImage} alt={post.title} />
+                        ) : (
+                          <div className="no-image">Sin imagen</div>
+                        )}
+                      </div>
+                      <div className="post-info">
+                        <h4>{post.title}</h4>
+                        <p>Guardados: {post.count}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="post-info">
-                  <h4>{post.title}</h4>
-                  <p>Guardados: {post.count}</p>
+              )}
+              
+              {activeTab === 'month' && stats.posts.masPopulares.ultimoMes && stats.posts.masPopulares.ultimoMes.length > 0 && (
+                <div className="popular-posts-list">
+                  {stats.posts.masPopulares.ultimoMes.map((post, index) => (
+                    <div className="popular-post-card" key={post._id}>
+                      <div className="post-rank">{index + 1}</div>
+                      <div className="post-image">
+                        {post.mainImage ? (
+                          <img src={post.mainImage} alt={post.title} />
+                        ) : (
+                          <div className="no-image">Sin imagen</div>
+                        )}
+                      </div>
+                      <div className="post-info">
+                        <h4>{post.title}</h4>
+                        <p>Guardados: {post.count}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
+              )}
+              
+              {activeTab === 'month' && (!stats.posts.masPopulares.ultimoMes || stats.posts.masPopulares.ultimoMes.length === 0) && (
+                <div className="no-data-message">
+                  No hay publicaciones guardadas en el último mes.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -292,22 +292,19 @@
 }
 
 .status-badge.active {
-  background-color: var(--primary-color);
   color: var(--text-white);
 }
 
 .status-badge.pending {
-  background-color: var(--primary-hover);
   color: var(--text-white);
 }
 
 .status-badge.inactive {
-  background-color: var(--divider-color);
-  color: var(--text-secondary);
+  color: var(--text-white);
 }
 
 .status-badge.default {
-  background-color: var(--divider-color);
+  color: var(--text-white);
   color: var(--text-secondary);
 }
 
