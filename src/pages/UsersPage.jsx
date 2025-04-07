@@ -10,6 +10,7 @@ import iconEdit from '../assets/icons/icon-edit.svg';
 import iconTrash from '../assets/icons/icon-trash.svg';
 import iconUndo from '../assets/icons/icon-undo.svg';
 import iconFilter from '../assets/icons/icon-filter.svg';
+import iconDisable from '../assets/icons/icon-disable.svg';
 
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -457,11 +458,11 @@ const UsersPage = () => {
                     </Link>
                     {user.isActive ? (
                       <button
-                        className="action-btn delete-btn" 
+                        className="action-btn disable-btn" 
                         title="Desactivar usuario"
                         onClick={() => handleSoftDelete(user._id, user.username)}
                       >
-                        <img src={iconTrash} alt="Desactivar" className="action-icon" />
+                        <img src={iconDisable} alt="Desactivar" className="action-icon" />
                       </button>
                     ) : (
                       <button

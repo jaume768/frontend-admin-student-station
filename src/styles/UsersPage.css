@@ -352,6 +352,11 @@
   background-color: var(--error-color-hover);
 }
 
+.action-btn.disable-btn:hover {
+  color: var(--warning-color);
+  background-color: var(--warning-color-hover);
+}
+
 .action-btn.restore-btn:hover {
   color: var(--success-color);
   background-color: var(--success-color-hover);

@@ -1,5 +1,4 @@
 envair email al ser aceptada y cancelada
-ir al post directamente
 ajustar foto en blog
 numero de estudiantes por escuela
 

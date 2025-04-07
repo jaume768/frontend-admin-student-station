@@ -101,7 +101,10 @@ const PostsPage = () => {
   };
 
   const handleViewPost = (postId) => {
-    navigate(`/posts/${postId}`);
+    // Abrir el post en el frontend de la plataforma en una nueva pestaña
+    const rutaFrontend = import.meta.env.VITE_RUTA_FRONTEND;
+
+    window.open(`${rutaFrontend}/ControlPanel/post/${postId}`, '_blank');
   };
 
   const handleDeleteConfirm = (postId) => {
