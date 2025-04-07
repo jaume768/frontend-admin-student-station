@@ -316,18 +316,18 @@ const PostsPage = () => {
                     <FaEdit />
                   </button>
                   <button 
-                    className={`action-btn staff-pick-btn ${post.staffPick ? 'active' : ''}`}
-                    title={post.staffPick ? "Quitar de destacados" : "Destacar publicación"}
-                    onClick={() => handleToggleStaffPick(post._id, post.staffPick)}
-                  >
-                    <FaStar />
-                  </button>
-                  <button 
                     className="action-btn delete-btn" 
                     title="Eliminar"
                     onClick={() => handleDeleteConfirm(post._id)}
                   >
                     <FaTrash />
+                  </button>
+                  <button 
+                    className={`action-btn staff-pick-btn ${post.staffPick ? 'active' : ''}`}
+                    title={post.staffPick ? "Quitar de destacados" : "Destacar publicación"}
+                    onClick={() => handleToggleStaffPick(post._id, post.staffPick)}
+                  >
+                    <FaStar />
                   </button>
                 </div>
               </div>

@@ -1,15 +1,10 @@
-repoartir los profesionales y creativos
-filtro avanzado de usuarios por instituciones y dmeas y en creativos
-cambiar color en pendiente y cancelada
 envair email al ser aceptada y cancelada
-fecha de publicación ordenado
 ir al post directamente
-mover estrella por la basura en posts
 ajustar foto en blog
 numero de estudiantes por escuela
 
 en estudiar moda, habria post de escuelas, y primero enseñar las escuelas y luego los pots como educacion
 añadir escuela manualmente en Escuelas
 has olvidado tu contraseña
-añadir fotos adicionales en publicar post del blog i ver al final y etiquetar personas con link, pie de pagina, mas blogs
+ver al final las fotos adicionales y etiquetar personas con link, pie de pagina, mas blogs
 revista en el admin

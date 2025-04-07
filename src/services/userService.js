@@ -1,12 +1,14 @@
 import api from './api';
 
 export const getUsers = async (filters = {}) => {
-  const { page = 1, limit = 10, role, search, status } = filters;
+  const { page = 1, limit = 10, role, search, status, creativeType, professionalType } = filters;
   let url = `/api/admin/users?page=${page}&limit=${limit}`;
   
   if (role) url += `&role=${role}`;
   if (search) url += `&search=${encodeURIComponent(search)}`;
   if (status) url += `&status=${status}`;
+  if (creativeType) url += `&creativeType=${creativeType}`;
+  if (professionalType) url += `&professionalType=${professionalType}`;
   
   const response = await api.get(url);
   return response.data;

@@ -18,6 +18,8 @@ const UsersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedRole, setSelectedRole] = useState('');
+  const [selectedCreativeType, setSelectedCreativeType] = useState('');
+  const [selectedProfessionalType, setSelectedProfessionalType] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [userStatus, setUserStatus] = useState('active'); // active, inactive, all
   const [showFilters, setShowFilters] = useState(false);
@@ -25,7 +27,7 @@ const UsersPage = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [currentPage, selectedRole, searchTerm, userStatus]);
+  }, [currentPage, selectedRole, selectedCreativeType, selectedProfessionalType, searchTerm, userStatus]);
 
   const fetchUsers = async () => {
     try {
@@ -35,7 +37,9 @@ const UsersPage = () => {
         limit: 10,
         role: selectedRole,
         search: searchTerm,
-        status: userStatus === 'all' ? 'all' : userStatus === 'inactive' ? 'inactive' : 'active'
+        status: userStatus === 'all' ? 'all' : userStatus === 'inactive' ? 'inactive' : 'active',
+        creativeType: selectedCreativeType,
+        professionalType: selectedProfessionalType
       };
       
       const response = await getUsers(filters);
@@ -50,7 +54,27 @@ const UsersPage = () => {
   };
 
   const handleRoleChange = (e) => {
-    setSelectedRole(e.target.value);
+    const role = e.target.value;
+    setSelectedRole(role);
+    
+    // Resetear los filtros de tipo de perfil cuando cambia el rol
+    if (role !== 'Creativo') {
+      setSelectedCreativeType('');
+    }
+    if (role !== 'Profesional') {
+      setSelectedProfessionalType('');
+    }
+    
+    setCurrentPage(1);
+  };
+  
+  const handleCreativeTypeChange = (e) => {
+    setSelectedCreativeType(e.target.value);
+    setCurrentPage(1);
+  };
+  
+  const handleProfessionalTypeChange = (e) => {
+    setSelectedProfessionalType(e.target.value);
     setCurrentPage(1);
   };
 
@@ -75,6 +99,8 @@ const UsersPage = () => {
 
   const resetFilters = () => {
     setSelectedRole('');
+    setSelectedCreativeType('');
+    setSelectedProfessionalType('');
     setSearchTerm('');
     setUserStatus('active');
     setCurrentPage(1);
@@ -296,6 +322,44 @@ const UsersPage = () => {
               <option value="Admin">Administradores</option>
             </select>
           </div>
+          
+          {selectedRole === 'Creativo' && (
+            <div className="filter-group">
+              <label htmlFor="creativeType">Tipo de Creativo</label>
+              <select 
+                id="creativeType"
+                value={selectedCreativeType} 
+                onChange={handleCreativeTypeChange}
+                className="filter-select"
+              >
+                <option value="">Todos los creativos</option>
+                <option value="1">Estudiantes</option>
+                <option value="2">Graduados</option>
+                <option value="3">Estilistas</option>
+                <option value="4">Diseñador de marca propia</option>
+                <option value="5">Otro</option>
+              </select>
+            </div>
+          )}
+          
+          {selectedRole === 'Profesional' && (
+            <div className="filter-group">
+              <label htmlFor="professionalType">Tipo de Profesional</label>
+              <select 
+                id="professionalType"
+                value={selectedProfessionalType} 
+                onChange={handleProfessionalTypeChange}
+                className="filter-select"
+              >
+                <option value="">Todos los profesionales</option>
+                <option value="1">Pequeña marca</option>
+                <option value="2">Empresa mediana-grande</option>
+                <option value="3">Agencia</option>
+                <option value="4">Instituciones</option>
+                <option value="5">Otra</option>
+              </select>
+            </div>
+          )}
           
           <div className="filter-group">
             <label htmlFor="status">Estado</label>

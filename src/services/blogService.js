@@ -18,22 +18,8 @@ export const getBlogPostDetails = async (postId) => {
   return response.data;
 };
 
-export const createBlogPost = async (postData) => {
-  // Se debe usar FormData para enviar imágenes
-  const formData = new FormData();
-  
-  // Añadir todos los campos de texto
-  Object.keys(postData).forEach(key => {
-    if (key !== 'image' || (key === 'image' && typeof postData[key] === 'string')) {
-      formData.append(key, postData[key]);
-    }
-  });
-  
-  // Añadir la imagen si es un archivo
-  if (postData.image instanceof File) {
-    formData.append('image', postData.image);
-  }
-  
+export const createBlogPost = async (formData) => {
+  // formData ya viene preparado desde el componente
   const response = await api.post('/api/admin/blog', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
@@ -43,22 +29,8 @@ export const createBlogPost = async (postData) => {
   return response.data;
 };
 
-export const updateBlogPost = async (postId, postData) => {
-  // Se debe usar FormData para enviar imágenes
-  const formData = new FormData();
-  
-  // Añadir todos los campos de texto
-  Object.keys(postData).forEach(key => {
-    if (key !== 'image' || (key === 'image' && typeof postData[key] === 'string')) {
-      formData.append(key, postData[key]);
-    }
-  });
-  
-  // Añadir la imagen si es un archivo
-  if (postData.image instanceof File) {
-    formData.append('image', postData.image);
-  }
-  
+export const updateBlogPost = async (postId, formData) => {
+  // formData ya viene preparado desde el componente
   const response = await api.put(`/api/admin/blog/${postId}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data'

@@ -15,6 +15,8 @@ const BlogPostFormPage = () => {
     excerpt: '',
     image: null,
     imagePreview: '',
+    additionalImages: [],
+    additionalImagePreviews: [],
     category: 'fashion',
     author: '',
     featured: false,
@@ -46,6 +48,8 @@ const BlogPostFormPage = () => {
           excerpt: blogPost.excerpt || '',
           image: null, // No cargar el archivo, solo mostrar la vista previa
           imagePreview: blogPost.image || '',
+          additionalImages: [],
+          additionalImagePreviews: blogPost.additionalImages || [],
           category: blogPost.category || 'fashion',
           author: blogPost.author || '',
           featured: blogPost.featured || false,
@@ -96,6 +100,53 @@ const BlogPostFormPage = () => {
     }
   };
   
+  const handleAdditionalImagesChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+      const newAdditionalImages = [...formData.additionalImages];
+      const newAdditionalImagePreviews = [...formData.additionalImagePreviews];
+      
+      let loadedCount = 0;
+      
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          newAdditionalImages.push(file);
+          newAdditionalImagePreviews.push(reader.result);
+          
+          loadedCount++;
+          if (loadedCount === files.length) {
+            setFormData(prev => ({
+              ...prev,
+              additionalImages: newAdditionalImages,
+              additionalImagePreviews: newAdditionalImagePreviews
+            }));
+            
+            // Resetear el input para poder seleccionar los mismos archivos nuevamente
+            e.target.value = '';
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+  
+  const removeAdditionalImage = (index) => {
+    setFormData(prev => {
+      const newAdditionalImages = [...prev.additionalImages];
+      const newAdditionalImagePreviews = [...prev.additionalImagePreviews];
+      
+      newAdditionalImages.splice(index, 1);
+      newAdditionalImagePreviews.splice(index, 1);
+      
+      return {
+        ...prev,
+        additionalImages: newAdditionalImages,
+        additionalImagePreviews: newAdditionalImagePreviews
+      };
+    });
+  };
+  
   const validateForm = () => {
     const newErrors = {};
     
@@ -136,20 +187,47 @@ const BlogPostFormPage = () => {
       setSubmitting(true);
       
       // Preparar datos para enviar
-      const postDataToSubmit = {
-        ...formData,
-        // Enviar solo el archivo de imagen, o la URL si no hay archivo nuevo
-        image: formData.image || formData.imagePreview
-      };
+      const formDataToSend = new FormData();
+      
+      // Añadir campos de texto
+      formDataToSend.append('title', formData.title);
+      formDataToSend.append('content', formData.content);
+      formDataToSend.append('excerpt', formData.excerpt);
+      formDataToSend.append('category', formData.category);
+      formDataToSend.append('author', formData.author);
+      formDataToSend.append('featured', formData.featured);
+      formDataToSend.append('size', formData.size);
+      formDataToSend.append('tags', formData.tags);
+      formDataToSend.append('status', formData.status);
+      
+      // Añadir imagen principal (archivo o URL)
+      if (formData.image) {
+        formDataToSend.append('image', formData.image);
+      } else if (formData.imagePreview) {
+        formDataToSend.append('imageUrl', formData.imagePreview);
+      }
+      
+      // Añadir imágenes adicionales (archivos)
+      if (formData.additionalImages && formData.additionalImages.length > 0) {
+        formData.additionalImages.forEach(file => {
+          formDataToSend.append('images', file);
+        });
+      }
+      
+      // Añadir URLs de imágenes adicionales existentes
+      if (formData.additionalImagePreviews && formData.additionalImagePreviews.length > 0 && 
+          (!formData.additionalImages || formData.additionalImages.length === 0)) {
+        formDataToSend.append('additionalImageUrls', JSON.stringify(formData.additionalImagePreviews));
+      }
       
       let response;
       if (isEditing) {
-        response = await updateBlogPost(postId, postDataToSubmit);
+        response = await updateBlogPost(postId, formDataToSend);
         if (response.success) {
           toast.success('Post actualizado correctamente');
         }
       } else {
-        response = await createBlogPost(postDataToSubmit);
+        response = await createBlogPost(formDataToSend);
         if (response.success) {
           toast.success('Post creado correctamente');
         }
@@ -263,9 +341,48 @@ const BlogPostFormPage = () => {
                 className="file-input"
               />
               <label htmlFor="image" className="file-input-label">
-                Seleccionar Imagen
+                Seleccionar Imagen Principal
               </label>
               {errors.image && <div className="error-message">{errors.image}</div>}
+            </div>
+            
+            <div className="form-group-blog image-upload-group">
+              <label>Imágenes Adicionales</label>
+              
+              {formData.additionalImagePreviews.length > 0 && (
+                <div className="additional-images-container">
+                  {formData.additionalImagePreviews.map((preview, index) => (
+                    <div key={index} className="additional-image-item">
+                      <img 
+                        src={preview} 
+                        alt={`Imagen adicional ${index + 1}`} 
+                        className="additional-image-preview" 
+                      />
+                      <button 
+                        type="button" 
+                        className="remove-image-btn"
+                        onClick={() => removeAdditionalImage(index)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              <input
+                type="file"
+                id="additionalImages"
+                name="additionalImages"
+                accept="image/*"
+                onChange={handleAdditionalImagesChange}
+                className="file-input"
+                multiple
+              />
+              <label htmlFor="additionalImages" className="file-input-label">
+                Añadir Imágenes
+              </label>
+              <div className="field-hint">Selecciona una o múltiples imágenes para añadirlas a la galería</div>
             </div>
             
             <div className={`form-group-blog ${errors.author ? 'has-error' : ''}`}>
