@@ -141,6 +141,31 @@
   border-bottom: 1px solid var(--border-color);
 }
 
+/* Estilos para estadísticas avanzadas */
+.advanced-stats-container {
+  margin-bottom: 40px;
+}
+
+.stats-heading {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+
+.stats-heading-icon {
+  margin-right: 10px;
+  color: var(--primary-color);
+}
+
+/* Estilos para secciones de estadísticas */
+.stats-section {
+  margin-bottom: 30px;
+}
+
+/* Estilos heredados de la versión anterior */
 .new-users-stats {
   display: flex;
   gap: 20px;

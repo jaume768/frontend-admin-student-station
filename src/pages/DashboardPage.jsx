@@ -6,8 +6,15 @@ import {
   FaUsers, 
   FaBriefcase, 
   FaGraduationCap, 
-  FaNewspaper 
+  FaNewspaper,
+  FaChartLine
 } from 'react-icons/fa';
+
+// Importar componentes de estadísticas
+import EngagementStats from '../components/stats/EngagementStats';
+import ContentStats from '../components/stats/ContentStats';
+import GrowthStats from '../components/stats/GrowthStats';
+import EducationalStats from '../components/stats/EducationalStats';
 
 const DashboardPage = () => {
   const [stats, setStats] = useState(null);
@@ -116,14 +123,18 @@ const DashboardPage = () => {
       </div>
 
       <div className="dashboard-sections">
-        <div className="dashboard-section">
-          <h2>Usuarios recientes</h2>
-          <div className="new-users-stats">
-            <div className="new-users-card">
-              <h3>{stats?.usuarios?.nuevos30Dias || 0}</h3>
-              <p>Nuevos usuarios en los últimos 30 días</p>
-            </div>
-          </div>
+        {/* Sección de estadísticas avanzadas */}
+        <div className="advanced-stats-container">
+          <h2 className="stats-heading">
+            <FaChartLine className="stats-heading-icon" />
+            Estadísticas Avanzadas
+          </h2>
+          
+          {/* Componentes de estadísticas */}
+          <GrowthStats stats={stats} />
+          <EngagementStats stats={stats} />
+          <ContentStats stats={stats} />
+          <EducationalStats stats={stats} />
         </div>
       </div>
 
