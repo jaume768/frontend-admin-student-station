@@ -35,6 +35,7 @@ export const createMagazine = async (magazineData) => {
     // Agregar datos de texto
     formData.append('name', magazineData.name);
     formData.append('price', magazineData.price);
+    formData.append('link', magazineData.link || '');
     
     if (magazineData.isActive !== undefined) {
       formData.append('isActive', magazineData.isActive);
@@ -73,6 +74,7 @@ export const updateMagazine = async (magazineId, magazineData) => {
     // Agregar datos de texto
     formData.append('name', magazineData.name);
     formData.append('price', magazineData.price);
+    formData.append('link', magazineData.link || '');
     
     if (magazineData.isActive !== undefined) {
       formData.append('isActive', magazineData.isActive);
