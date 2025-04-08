@@ -14,6 +14,8 @@ import SchoolsPage from './pages/SchoolsPage'
 import SchoolFormPage from './pages/SchoolFormPage'
 import BlogPage from './pages/BlogPage'
 import BlogPostFormPage from './pages/BlogPostFormPage'
+import MagazinesPage from './pages/MagazinesPage'
+import MagazineFormPage from './pages/MagazineFormPage'
 import SettingsPage from './pages/SettingsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import Layout from './components/common/Layout'
@@ -57,6 +59,10 @@ function App() {
           <Route path="blog" element={<BlogPage />} />
           <Route path="blog/crear" element={<BlogPostFormPage />} />
           <Route path="blog/:postId" element={<BlogPostFormPage />} />
+          <Route path="revistas" element={<MagazinesPage />} />
+          <Route path="revistas/nueva" element={<MagazineFormPage />} />
+          <Route path="revistas/editar/:magazineId" element={<MagazineFormPage />} />
+          <Route path="revistas/:magazineId" element={<MagazineFormPage />} />
           <Route path="configuracion" element={<SettingsPage />} />
         </Route>
         

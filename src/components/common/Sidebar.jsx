@@ -8,7 +8,8 @@ import {
   FaNewspaper, 
   FaSchool, 
   FaBlog,
-  FaCog
+  FaCog,
+  FaBook
 } from 'react-icons/fa';
 
 const Sidebar = ({ isMobileOpen, toggleMobileSidebar }) => {
@@ -65,6 +66,11 @@ const Sidebar = ({ isMobileOpen, toggleMobileSidebar }) => {
           <NavLink to="/schools" className="sidebar-link" onClick={closeSidebar}>
             <FaSchool className="sidebar-link-icon" />
             <span className="sidebar-link-text">Escuelas</span>
+          </NavLink>
+          
+          <NavLink to="/revistas" className="sidebar-link" onClick={closeSidebar}>
+            <FaBook className="sidebar-link-icon" />
+            <span className="sidebar-link-text">Revistas</span>
           </NavLink>
           
           <div className="menu-category">Configuración</div>
