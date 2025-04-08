@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'
+        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://backend-studen-station-production.up.railway.app'
         const response = await axios.get(`${backendUrl}/api/auth/verify-admin-token`, {
           headers: { Authorization: `Bearer ${token}` }
         })
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setLoading(true)
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://backend-studen-station-production.up.railway.app'
       const response = await axios.post(`${backendUrl}/api/auth/admin-login`, { 
         email, 
         password 
