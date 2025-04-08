@@ -81,31 +81,34 @@ const MagazinesPage = () => {
   };
 
   return (
-    <div className="admin-page magazines-page">
-      <div className="page-header">
+    <div className="magazine-container">
+      <div className="magazine-header">
         <h1>Revistas</h1>
-        <Link to="/revistas/nueva" className="btn btn-primary">
+        <Link to="/revistas/nueva" className="btn btn-primary create-btn">
           <FaPlus /> Nueva Revista
         </Link>
       </div>
 
-      {/* Barra de filtros */}
-      <div className="filters-bar">
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Buscar por nombre..."
-            value={filters.search}
-            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-            onKeyPress={(e) => e.key === 'Enter' && handleApplyFilters(e)}
-          />
-          <button className="search-button" onClick={handleApplyFilters}>
-            <FaSearch />
-          </button>
+      {/* Controles de búsqueda y filtros */}
+      <div className="magazine-controls">
+        <div className="search-form">
+          <div className="search-input-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Buscar por nombre..."
+              value={filters.search}
+              onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+              onKeyPress={(e) => e.key === 'Enter' && handleApplyFilters(e)}
+            />
+            <button className="search-btn" onClick={handleApplyFilters}>
+              <FaSearch />
+            </button>
+          </div>
         </div>
 
         <button
-          className="filter-toggle-button"
+          className={`filter-toggle-btn ${showFilters ? 'active' : ''}`}
           onClick={() => setShowFilters(!showFilters)}
         >
           <FaFilter /> Filtros
@@ -115,33 +118,35 @@ const MagazinesPage = () => {
       {/* Panel de filtros expandible */}
       {showFilters && (
         <div className="filters-panel">
-          <form onSubmit={handleApplyFilters}>
-            <div className="form-group">
-              <label htmlFor="status">Estado:</label>
-              <select
-                id="status"
-                value={filters.status}
-                onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              >
-                <option value="active">Activas</option>
-                <option value="inactive">Inactivas</option>
-                <option value="all">Todas</option>
-              </select>
-            </div>
+          <div className="filter-group">
+            <label htmlFor="status">Estado:</label>
+            <select
+              id="status"
+              className="filter-select"
+              value={filters.status}
+              onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+            >
+              <option value="active">Activas</option>
+              <option value="inactive">Inactivas</option>
+              <option value="all">Todas</option>
+            </select>
+          </div>
 
-            <div className="filters-actions">
-              <button type="submit" className="btn btn-primary">
-                Aplicar Filtros
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => setShowFilters(false)}
-              >
-                Cancelar
-              </button>
-            </div>
-          </form>
+          <button 
+            type="button" 
+            className="reset-filters-btn" 
+            onClick={handleApplyFilters}
+          >
+            Aplicar Filtros
+          </button>
+          
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setShowFilters(false)}
+          >
+            Cancelar
+          </button>
         </div>
       )}
 
@@ -159,27 +164,31 @@ const MagazinesPage = () => {
           </Link>
         </div>
       ) : (
-        <div className="table-container">
-          <table className="data-table">
+        <div className="table-responsive">
+          <table className="magazine-table">
             <thead>
               <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
+                <th>Revista</th>
                 <th>Precio</th>
                 <th>Estado</th>
-                <th>Fecha Creación</th>
+                <th>Fecha Publicación</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               {magazines.map((magazine) => (
-                <tr key={magazine._id}>
+                <tr key={magazine._id} className={magazine.isActive ? '' : 'inactive-row'}>
                   <td>
-                    <div className="thumbnail">
-                      <img src={magazine.image} alt={magazine.name} />
+                    <div className="magazine-cell">
+                      <div className="magazine-image">
+                        <img src={magazine.image} alt={magazine.name} />
+                      </div>
+                      <div className="magazine-info">
+                        <div className="magazine-name">{magazine.name}</div>
+                        <div className="magazine-price">{formatPrice(magazine.price)}</div>
+                      </div>
                     </div>
                   </td>
-                  <td>{magazine.name}</td>
                   <td>{formatPrice(magazine.price)}</td>
                   <td>
                     <span className={`status-badge ${magazine.isActive ? 'active' : 'inactive'}`}>
@@ -188,14 +197,14 @@ const MagazinesPage = () => {
                   </td>
                   <td>{new Date(magazine.createdAt).toLocaleDateString()}</td>
                   <td className="actions-cell">
-                    <Link to={`/revistas/${magazine._id}`} className="btn-icon" title="Ver detalles">
+                    <Link to={`/revistas/${magazine._id}`} className="action-btn view-btn" title="Ver detalles">
                       <FaEye />
                     </Link>
-                    <Link to={`/revistas/editar/${magazine._id}`} className="btn-icon edit" title="Editar">
+                    <Link to={`/revistas/editar/${magazine._id}`} className="action-btn edit-btn" title="Editar">
                       <FaEdit />
                     </Link>
                     <button
-                      className="btn-icon delete"
+                      className="action-btn delete-btn"
                       title="Eliminar"
                       onClick={() => setSelectedMagazine(magazine)}
                     >

@@ -1,293 +1,377 @@
-/* Estilos para la página de listado de revistas */
-
-/* Encabezado de la página */
-.magazines-page .page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
+.magazine-container {
+  padding: 20px 0;
 }
 
-/* Barra de filtros */
-.magazines-page .filters-bar {
+.magazine-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 25px;
+}
+
+.magazine-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.create-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.magazine-controls {
+  display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.magazines-page .search-box {
-  position: relative;
+.search-form {
   flex: 1;
-  max-width: 400px;
+  min-width: 250px;
+  max-width: 500px;
 }
 
-.magazines-page .search-box input {
-  width: 100%;
-  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+.search-input-container {
+  display: flex;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
-  font-size: 0.9rem;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  background-color: var(--card-background);
 }
 
-.magazines-page .search-button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 2.5rem;
-  background: transparent;
+.search-input {
+  flex: 1;
+  padding: 10px 15px;
   border: none;
+  font-size: 14px;
+  background-color: var(--card-background);
+  color: var(--text-primary);
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-btn {
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  padding: 0 15px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  color: var(--text-muted);
+  transition: background-color var(--transition-fast);
 }
 
-.magazines-page .filter-toggle-button {
+.search-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.filter-toggle-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background-color: var(--bg-secondary);
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: var(--card-background);
   border: 1px solid var(--border-color);
-  border-radius: 4px;
-  font-size: 0.9rem;
+  border-radius: var(--border-radius-md);
+  color: var(--text-primary);
+  font-size: 14px;
   cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
-/* Panel de filtros */
-.magazines-page .filters-panel {
-  width: 100%;
-  padding: 1rem;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
+.filter-toggle-btn:hover {
+  background-color: var(--primary-hover);
 }
 
-.magazines-page .filters-panel form {
+.filter-toggle-btn.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.filters-panel {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 20px;
+  padding: 15px;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
   align-items: flex-end;
 }
 
-.magazines-page .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  flex: 1;
+.filter-group {
   min-width: 200px;
 }
 
-.magazines-page .form-group select {
-  padding: 0.5rem;
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 10px;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
-  background-color: var(--bg-primary);
+  border-radius: var(--border-radius-md);
+  font-size: 14px;
+  color: var(--text-primary);
+  background-color: var(--card-background);
 }
 
-.magazines-page .filters-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-left: auto;
+.reset-filters-btn {
+  height: 38px;
+  padding: 0 20px;
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
 }
 
-/* Tabla de datos */
-.magazines-page .table-container {
-  background-color: var(--bg-secondary);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+.reset-filters-btn:hover {
+  background-color: var(--primary-hover);
 }
 
-.magazines-page .data-table {
+.table-responsive {
+  overflow-x: auto;
+  margin-bottom: 25px;
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.magazine-table {
   width: 100%;
   border-collapse: collapse;
+  background-color: var(--card-background);
 }
 
-.magazines-page .data-table th,
-.magazines-page .data-table td {
-  padding: 0.75rem 1rem;
+.magazine-table th, .magazine-table td {
+  padding: 14px;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
 }
 
-.magazines-page .data-table th {
-  background-color: var(--bg-table-header);
+.magazine-table th {
   font-weight: 600;
-  color: var(--text-muted);
-  font-size: 0.9rem;
+  color: var(--text-primary);
+  background-color: var(--card-background);
+  font-size: 14px;
 }
 
-.magazines-page .data-table tbody tr:hover {
-  background-color: var(--bg-hover);
+.magazine-table tbody tr:hover {
+  background-color: var(--card-background-hover);
 }
 
-.magazines-page .data-table tbody tr:last-child td {
-  border-bottom: none;
+.inactive-row {
+  background-color: var(--card-background);
+  opacity: 0.8;
 }
 
-/* Celda de imagen */
-.magazines-page .thumbnail {
-  width: 60px;
-  height: 60px;
-  border-radius: 4px;
-  overflow: hidden;
+.inactive-row:hover {
+  opacity: 1;
+}
+
+.magazine-cell {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: var(--bg-primary);
+  gap: 12px;
 }
 
-.magazines-page .thumbnail img {
-  max-width: 100%;
-  max-height: 100%;
+.magazine-image {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  background-color: var(--card-background);
+}
+
+.magazine-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-/* Estado */
-.magazines-page .status-badge {
-  display: inline-block;
-  padding: 0.25rem 0.6rem;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.magazines-page .status-badge.active {
-  background-color: var(--success-light);
-  color: var(--success);
-}
-
-.magazines-page .status-badge.inactive {
-  background-color: var(--danger-light);
-  color: var(--danger);
-}
-
-/* Acciones */
-.magazines-page .actions-cell {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.magazines-page .btn-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
+.image-placeholder {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-primary);
-  color: var(--text-muted);
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  transition: all 0.2s;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
 }
 
-.magazines-page .btn-icon:hover {
-  background-color: var(--bg-hover);
-}
-
-.magazines-page .btn-icon.edit:hover {
-  color: var(--primary);
-  border-color: var(--primary);
-}
-
-.magazines-page .btn-icon.delete:hover {
-  color: var(--danger);
-  border-color: var(--danger);
-}
-
-/* Paginación */
-.magazines-page .pagination {
+.magazine-info {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.magazine-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.magazine-price {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-badge.active {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.status-badge.inactive {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  display: flex;
   align-items: center;
-  padding: 1rem;
-  border-top: 1px solid var(--border-color);
-}
-
-.magazines-page .pagination-btn {
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  background-color: var(--bg-primary);
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-sm);
   border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  color: var(--text-primary);
   cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
-.magazines-page .pagination-btn:disabled {
+.action-btn:hover {
+  background-color: var(--card-background-hover);
+}
+
+.view-btn:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.edit-btn:hover {
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.delete-btn:hover {
+  color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.restore-btn:hover {
+  color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--card-background);
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.pagination-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Estado vacío */
-.magazines-page .empty-state {
-  padding: 3rem 1rem;
-  text-align: center;
-  background-color: var(--bg-secondary);
-  border-radius: 8px;
-  margin-top: 1rem;
-}
-
-.magazines-page .empty-state p {
-  margin-bottom: 1rem;
-  color: var(--text-muted);
-}
-
-/* Botones principales */
-.magazines-page .btn {
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-flex;
+.empty-state {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  border: none;
-  transition: all 0.2s;
-}
-
-.magazines-page .btn-primary {
-  background-color: var(--primary);
-  color: white;
-}
-
-.magazines-page .btn-primary:hover {
-  background-color: var(--primary-dark);
-}
-
-.magazines-page .btn-secondary {
-  background-color: var(--bg-primary);
-  color: var(--text-color);
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
 }
 
-.magazines-page .btn-secondary:hover {
-  background-color: var(--bg-hover);
+.empty-state p {
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 16px;
 }
 
-.magazines-page .btn-danger {
-  background-color: var(--danger);
-  color: white;
+.loading-indicator,
+.error-message {
+  padding: 40px;
+  text-align: center;
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
 }
 
-.magazines-page .btn-danger:hover {
-  background-color: var(--danger-dark);
+.error-message {
+  color: var(--danger-color);
 }
 
-/* Modal de confirmación */
-.magazines-page .modal-overlay {
+/* Modal styles */
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
@@ -295,77 +379,113 @@
   z-index: 1000;
 }
 
-.magazines-page .modal-container {
-  width: 95%;
+.modal-container {
+  background-color: var(--card-background);
+  border-radius: var(--border-radius-md);
+  width: 90%;
   max-width: 500px;
-  background-color: var(--bg-primary);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.magazines-page .modal-header {
-  padding: 1rem;
+.modal-header {
+  padding: 15px 20px;
   border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.magazines-page .modal-header h3 {
+.modal-header h3 {
   margin: 0;
+  font-size: 18px;
+  color: var(--text-primary);
 }
 
-.magazines-page .modal-body {
-  padding: 1.5rem 1rem;
+.modal-body {
+  padding: 20px;
 }
 
-.magazines-page .modal-body p {
-  margin: 0 0 1rem;
-}
-
-.magazines-page .modal-body .warning {
-  color: var(--danger);
-  font-weight: 500;
-}
-
-.magazines-page .modal-footer {
-  padding: 1rem;
+.modal-footer {
+  padding: 15px 20px;
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: 10px;
 }
 
-/* Mensajes de error */
-.magazines-page .error-message {
-  padding: 0.75rem 1rem;
-  background-color: var(--danger-light);
-  color: var(--danger);
-  border-radius: 4px;
-  margin-bottom: 1rem;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--border-radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
 }
 
-/* Indicador de carga */
-.magazines-page .loading-indicator {
-  padding: 2rem;
-  text-align: center;
-  color: var(--text-muted);
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
 }
 
-/* Responsive */
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--card-background);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--card-background-hover);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--danger-hover);
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.warning {
+  color: var(--danger-color);
+  font-weight: 500;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
-  .magazines-page .filters-bar {
+  .magazine-controls {
     flex-direction: column;
-    align-items: stretch;
   }
   
-  .magazines-page .search-box {
+  .search-form {
     max-width: 100%;
   }
   
-  .magazines-page .table-container {
-    overflow-x: auto;
+  .actions-cell {
+    flex-wrap: wrap;
   }
-
-  .magazines-page .data-table {
-    min-width: 800px;
+  
+  .pagination {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .modal-container {
+    width: 95%;
   }
 }
