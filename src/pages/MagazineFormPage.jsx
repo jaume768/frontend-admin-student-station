@@ -12,6 +12,7 @@ const MagazineFormPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
+    link: '',
     isActive: true,
     image: null,
     imagePreview: ''
@@ -33,6 +34,7 @@ const MagazineFormPage = () => {
         setFormData({
           name: magazine.name,
           price: magazine.price,
+          link: magazine.link || '',
           isActive: magazine.isActive,
           image: null,
           imagePreview: magazine.image
@@ -100,6 +102,7 @@ const MagazineFormPage = () => {
       const magazineData = {
         name: formData.name,
         price: parseFloat(formData.price),
+        link: formData.link,
         isActive: formData.isActive,
         image: formData.image,
         imageUrl: (!formData.image && formData.imagePreview) ? formData.imagePreview : undefined
@@ -192,6 +195,20 @@ const MagazineFormPage = () => {
               required
               disabled={submitting}
             />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="link">Enlace de compra</label>
+            <input
+              type="url"
+              id="link"
+              name="link"
+              value={formData.link}
+              onChange={handleChange}
+              placeholder="https://ejemplo.com/comprar-revista"
+              disabled={submitting}
+            />
+            <p className="form-help-text">URL donde se puede comprar la revista (opcional)</p>
           </div>
           
           <div className="form-group checkbox-group">
