@@ -61,6 +61,7 @@ export const AuthProvider = ({ children }) => {
     checkAuthStatus()
   }, [token])
 
+  
   // Función para iniciar sesión
   const login = async (email, password) => {
     try {
