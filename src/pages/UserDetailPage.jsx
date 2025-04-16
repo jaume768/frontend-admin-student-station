@@ -17,7 +17,8 @@ const UserDetailPage = () => {
     email: '',
     role: '',
     isAdmin: false,
-    isActive: true
+    isActive: true,
+    isVerificatedProfesional: false
   });
   const [isSaving, setIsSaving] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -40,7 +41,8 @@ const UserDetailPage = () => {
           email: response.user.email || '',
           role: response.user.role || 'Creativo',
           isAdmin: response.user.isAdmin || false,
-          isActive: response.user.isActive !== false // true por defecto si no está definido
+          isActive: response.user.isActive !== false, // true por defecto si no está definido
+          isVerificatedProfesional: response.user.isVerificatedProfesional || false
         });
       } else {
         setError('No se pudo obtener la información del usuario');
@@ -98,7 +100,8 @@ const UserDetailPage = () => {
       email: user.email || '',
       role: user.role || 'Creativo',
       isAdmin: user.isAdmin || false,
-      isActive: user.isActive !== false
+      isActive: user.isActive !== false,
+      isVerificatedProfesional: user.isVerificatedProfesional || false
     });
     setIsEditing(false);
   };
@@ -285,6 +288,23 @@ const UserDetailPage = () => {
                   Usuario activo
                 </label>
               </div>
+              
+              {formData.role === 'Profesional' && (
+                <div className="form-check">
+                  <input 
+                    type="checkbox" 
+                    id="isVerificatedProfesional"
+                    name="isVerificatedProfesional"
+                    checked={formData.isVerificatedProfesional}
+                    onChange={handleInputChange}
+                    disabled={!isEditing}
+                    className="form-check-input"
+                  />
+                  <label htmlFor="isVerificatedProfesional" className="form-check-label">
+                    Empresa/Institución verificada
+                  </label>
+                </div>
+              )}
             </div>
 
             {!isEditing && (
